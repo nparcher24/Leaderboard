@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement("script");
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player("player", {
+        width: "100%",
+        videoId: "Prfu0hmAh58",
+        playerVars: {
+          playlist: "Prfu0hmAh58",
+          autoplay: 1,
+          playsinline: 1,
+          controls: 0,
+          modestbranding: 1,
+          autohide: 1,
+          showinfo: 0,
+          loop: 1,
+        },
+        events: {
+          onReady: onPlayerReady,
+        },
+      });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+      event.target.mute();
+      event.target.playVideo();
+    }
+  </script>
+  <style>
+    /* Make the youtube video responsive */
+    .iframe-container {
+      position: relative;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+    .iframe-container iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--video-width);
+      height: var(--video-height);
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="The Train American Challege: Do you have what it takes?"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -24,7 +79,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Train American Challenge</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

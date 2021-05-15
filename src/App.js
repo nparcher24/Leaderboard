@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import firebase from "firebase";
+import LandingPage from "./pages/LandingPage";
 
-function App() {
+function App(...props) {
+  const config = {
+    apiKey: "AIzaSyApMJDBNAYeomatcvnCcOB76eIpRdORHMc",
+    authDomain: "trainamericanchallenge.com",
+    projectId: "leaderboard-d5992",
+    storageBucket: "leaderboard-d5992.appspot.com",
+    messagingSenderId: "76465362834",
+    appId: "1:76465362834:web:a662d074145d2133e2534b",
+    measurementId: "G-T330LTJJD0",
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="bg-primary">
+      <LandingPage />
     </div>
   );
 }
