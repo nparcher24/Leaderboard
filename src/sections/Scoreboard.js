@@ -115,7 +115,7 @@ export default function Scoreboard(props) {
                 }
               }}
             >
-              Submit Score
+              {props.isSignedIn ? "Submit Score" : "Sign In"}
               {/* <MailIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" /> */}
             </button>
 
@@ -141,6 +141,7 @@ export default function Scoreboard(props) {
             )}
           </div>
         </div>
+
         <div
           // className="px-6 md:px-14 py-10 max-w-xl flex-row w-full bg-red-500"
           className="px-6 md:px-14 py-10 mt-6 grid grid-cols-1 gap-y-6 gap-x-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
@@ -165,79 +166,84 @@ export default function Scoreboard(props) {
           />
         </div>
 
-        {/* Large screen Table */}
-        <div className="-my-2 overflow-x-auto px-6 ">
-          <div className="py-2 align-middle inline-block min-w-full md:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 rounded-md sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell"
-                    >
-                      Location
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell"
-                    >
-                      Age
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Time
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {athletes.length > 0 ? (
-                    athletes.map((athlete) => [
-                      <tr key={athlete.email}>
-                        {/* {console.log("Updated!!!!!!! " + athlete.time)} */}
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <LeaderboardName {...props} athlete={athlete} />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell ">
-                          <div className="text-sm text-gray-900">
-                            {athlete.city + ", " + athlete.state}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                          <div className="text-sm text-gray-500">
-                            {calculateAge(athlete.birthDate)}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {athlete.time}
-                        </td>
-                      </tr>,
-                    ])
-                  ) : (
-                    <div />
-                  )}
-                </tbody>
-              </table>
-              {athletes.length === 0 ? (
-                <div>
-                  <p className="p-2 bg-gray-100">
-                    There are no entries yet....{" "}
-                  </p>
-                </div>
-              ) : (
-                <div />
-              )}
+        {props.isSignedIn ? (
+          <div className="-my-2 overflow-x-auto px-6 ">
+            <div className="py-2 align-middle inline-block min-w-full md:px-8">
+              <div className="shadow overflow-hidden border-b border-gray-200 rounded-md sm:rounded-lg">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell"
+                      >
+                        Location
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell"
+                      >
+                        Age
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Time
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {athletes.length > 0 ? (
+                      athletes.map((athlete) => [
+                        <tr key={athlete.email}>
+                          {/* {console.log("Updated!!!!!!! " + athlete.time)} */}
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <LeaderboardName {...props} athlete={athlete} />
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell ">
+                            <div className="text-sm text-gray-900">
+                              {athlete.city + ", " + athlete.state}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                            <div className="text-sm text-gray-500">
+                              {calculateAge(athlete.birthDate)}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {athlete.time}
+                          </td>
+                        </tr>,
+                      ])
+                    ) : (
+                      <div />
+                    )}
+                  </tbody>
+                </table>
+                {athletes.length === 0 ? (
+                  <div>
+                    <p className="p-2 bg-gray-100">
+                      There are no entries yet....{" "}
+                    </p>
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="w-full h-48 items-center content-center align-middle text-center">
+            <h2 className="pt-20">PLEASE SIGN IN TO VIEW LEADERBOARD</h2>
+          </div>
+        )}
       </div>
     </div>
   );
